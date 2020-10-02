@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=pageTitle%></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+       .card-outer{
+           display:flex;
+           flex-wrap: wrap;
+           margin-left:150px;
+
+       }
+       .card-inner{
+           flex-basis:25%;
+           margin:10px;
+           margin-top:none;
+           background:#ff6d39;
+           /* border-radius:20px; */
+           /* height:300px; */
+           box-shadow: 10px 5px 10px -5px rgba(0,0,0.4);
+       }
+       .card-inner img{
+           width:100%;
+       }
+       .card-inner a,button{
+           color: white;
+           /* font-weight:500; */
+           /* padding:10px; */
+           text-decoration: none;
+           border:none;
+           outline: none;
+           background: blue;
+           /* margin:10px 14px; */
+           border-radius: 20px;
+          
+           transition: transform 0.5s;
+           
+       }
+       .card-inner a:hover ,button:hover{
+           color: black;
+           background:orange;
+           transform: scale(1.2);
+           font-weight: 200;
+       }
+       button{
+           margin-left:750px;
+       }
+       .dur{
+           margin-left:1000px;
+           background:blue;
+           border-radius:20px;
+    
+       }
+       .dur:hover{
+        color: black;
+           background:orange;
+           
+       }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="font-size: 20px; font-weight:600; color:black;">
+        <a class="navbar-brand" style ="color:pink" href="/">Shop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Products <span class="sr-only">(current)</span></a>
+            
+            <% if(isAuthenticated) {%>
+            <a class="nav-item nav-link" href="/cart">carts</a>
+            <a class="nav-item nav-link" href="/add-product">Add Product</a>
+            <a class="nav-item nav-link " href="/admin">Admin</a>
+           <form action ="/logout" method ="post"> 
+            <input type = "hidden" name="_csrf" value ="<%=csrfToken%>">
+            <button type ="submit">Logout</button>
+            </form>
+            <%} else {%>
+            <a class="nav-item nav-link dur" href="/login">Login</a>
+            <a class="nav-item nav-link"style='background:blue;border-radius:20px;margin-left:3px;a:hover{ color:orange}' href="/signup">SignUp</a>
+            <%}%>
+          </div>
+        </div>
+      </nav>
+    <div class="card-outer">
+        <% for(prod of product) { %>
+             <div class="card-inner">
+                <!-- <p style="text-align:center;font-weight:800;"><%=prod.name%></p> -->
+            <img src= "<%=prod.imageUrl%>" style= "display:block;margin-top:50px;">
+            <p style="font-weight:600;">Price: $<%=prod.price%></p>
+         <p><%=prod.description%></p>
+    
+            <a href= "/getDetails/<%=prod._id%>">Get Details</a>
+            
+            <% if(isAuthenticated) {%>
+            <form action = "/addToCart" method ="post">
+                <input type = "hidden" name = "productId" value = "<%=prod._id%>">
+                <input type = "hidden" name="_csrf" value ="<%=csrfToken%>">
+                <button type ="submit">Add To Cart</button>
+            </form>   
+            <%}%>     
+              
+
+            </div>
+            
+         <%}%> 
+    </div>
+    
+</body>
+</html>

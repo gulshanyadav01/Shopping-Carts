@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=pageTitle%></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="font-size: 20px; font-weight:600; color:black;">
+        <a class="navbar-brand" style ="color:pink" href="/">Shop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Products <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/cart">carts</a>
+            <a class="nav-item nav-link" href="/add-product">Add Product</a>
+            <a class="nav-item nav-link " href="/admin">Admin</a>
+          </div>
+        </div>
+      </nav>
+    <form  action="/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>" method="POST">
+        <label for= "name">name:</label>
+        <input type = "text" name="name" value ="<% if(editing) {%> <%=product.name%> <%}%>"><br>
+        <label for= "price">price:</label>
+        <input type = "text" name="price" value ="<% if(editing) {%> <%=product.price%> <%}%>"><br>
+        <label for="description">Description:</label>
+        <input type = "text" name="description" value ="<% if(editing) {%> <%=product.description%> <%}%>"><br>
+        <label for= "imageUrl">imageUrl:</label>
+        <input type = "text" name="imageUrl" value ="<% if(editing) {%> <%=product.imageUrl%> <%}%>"><br>
+        <button type = "submit"><% if(editing) {%>Update Product <%} else {%> Add Product <%}%> </button>
+        <input type = "hidden" name="_csrf" value ="<%=csrfToken%>">
+        <% if(editing) {%>
+            <input type ="hidden" name ="productId" value ="<%=product._id%>">
+        <%}%>
+    </form>   
+</body>
+</html>
