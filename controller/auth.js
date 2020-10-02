@@ -137,6 +137,8 @@ exports.postLogout = (req, res, next) => {
 // }
 
 
+
+
 exports.getReset = (req, res, next) =>{
   res.render("passwordReset",{
     pageTitle: "Reset",
@@ -169,6 +171,7 @@ exports.postReset = (req, res, next) =>{
 
     ).then(result =>{
       res.redirect("/");
+
      transporter.sendMail({
         to: req.body.email,
         from: "gulshany01@gmail.com",
@@ -190,12 +193,12 @@ exports.postReset = (req, res, next) =>{
 
 exports.getNewPassword = (req, res, next) =>{
   const token = req.params.token;
-  Costumer.findOne({resetToken: token, resetTokenExpiration:{$gt: Date.now()} })
+  Costumer.findOne({resetToken: token, resetTokenExpiration:{$gt: Date.now()}})
   .then(costumer =>{
     res.render("newPassword",{
       pageTitle: "update new Password",
       errorMessage: req.flash("error"),
-      costumer: 
+      userId : user._id.toString() 
     })
   }
 
