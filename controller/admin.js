@@ -1,6 +1,7 @@
 const { restart } = require("nodemon");
 const Product = require("../model/product");
-const Costumer = require("../model/user")
+const Costumer = require("../model/user");
+const { validationResult }  = require('express-validator');
 
 
 exports.getIndex = (req, res, next) =>{
@@ -31,6 +32,7 @@ exports.postAddProducts = (req, res, next) =>{
     const description = req.body.description;
     const imageUrl = req.body.imageUrl;
     const costumerId = req.costumer;
+    // const errors = validationResult(req);
 
     const product = new Product({
         name: name,
@@ -56,6 +58,7 @@ exports.getProduct = (req, res, next) =>{
     .then(product =>{
         res.render("product",{pageTitle:"Details",
         product:product
+
         });
     })
     .catch((err) =>{
@@ -74,7 +77,8 @@ exports.getEditProduct = (req, res, next) =>{
     .then((product) =>{
         res.render("add-product",{pageTitle:"edit-product",
         product:product,
-        editing:edit
+        editing:edit,
+        hasError : false
     });
     })
 

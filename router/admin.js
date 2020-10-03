@@ -1,6 +1,8 @@
 const express = require("express");
 // const { route } = require("../../shopping/router/admin");
 
+const { body } = require("express-validator");
+
 
 const router = express.Router();
 const ControllerBhai = require("../controller/admin");
@@ -9,7 +11,17 @@ const isAuth = require("../middleware/isAuth");
 router.get("/",ControllerBhai.getIndex);
 
 router.get("/add-product", isAuth , ControllerBhai.getAddProducts);
-router.post("/add-product", isAuth ,ControllerBhai.postAddProducts);
+router.post("/add-product",[
+    body("name")
+    .isAlphanumeric()
+    .isLength({ min: 3})
+    .trim(),
+    body("imageUrl").isURL(),
+    body("description")
+    .isLength( {min: 5, max: 400})
+    .trim()
+],
+ isAuth ,ControllerBhai.postAddProducts);
 
 
 
