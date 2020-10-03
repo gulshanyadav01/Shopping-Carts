@@ -34,10 +34,15 @@ app.use((req, res, next) => {
     }
     Costumer.findById(req.session.costumer._id)
       .then(costumer => {
+        if(!user){
+          return next();
+        }
         req.costumer = costumer;
         next();
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        // console.log(err)
+        throw new Error(err);      
   });
 
 app.use((req, res, next) =>{
