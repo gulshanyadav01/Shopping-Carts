@@ -18,12 +18,12 @@ const productSchema = new Schema({
     imageUrl: {
         type: String,
         required: true
+    },
+    costumerId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: "Costumer"
     }
-    // costumerId: {
-    //     type: Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: "Costumer"
-    // }
 });
 
 module.exports = mongoose.model("Product",productSchema);

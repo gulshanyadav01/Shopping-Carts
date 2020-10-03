@@ -30,12 +30,14 @@ exports.postAddProducts = (req, res, next) =>{
     const price = req.body.price;
     const description = req.body.description;
     const imageUrl = req.body.imageUrl;
+    const costumerId = req.costumer;
 
     const product = new Product({
         name: name,
         price: price,
         description: description,
-        imageUrl: imageUrl
+        imageUrl: imageUrl,
+        costumerId: costumerId
     });
     product.save()
     .then((result) =>{
@@ -159,7 +161,7 @@ exports.deleteProductCart = (req, res, next) =>{
 }
 
 exports.getAdmin = (req, res, next) =>{
-    Product.find()
+    Product.find({costumer : req.costumer._id})
     .then(product =>{
         res.render("admin",{pageTitle:"products",
         product: product
