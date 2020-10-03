@@ -21,9 +21,13 @@
            /* border-radius:20px; */
            /* height:300px; */
            box-shadow: 10px 5px 10px -5px rgba(0,0,0.4);
+           border-top-left-radius: 10px;
+           border-top-right-radius: 10px;
        }
        .card-inner img{
            width:100%;
+           border-top-left-radius: 10px;
+           border-top-right-radius: 10px;
        }
        .card-inner a,button{
            color: white;
@@ -49,20 +53,31 @@
            margin-left:750px;
        }
        .dur{
-           margin-left:1000px;
-           background:blue;
-           border-radius:20px;
+           margin-left:950px;
+           background:radial-gradient(#ff414d,red);
+           border-radius:7px;
+           padding: 8px 20px;
+           color:white;
+           box-shadow: 10px 15px 15px -5px rgba(0,0,0,0.4);
     
        }
-       .dur:hover{
+       #li{
+        padding: 6px 10px;
+        margin-left: 3px;
+        background: green;
+        border-radius:7px;
+        box-shadow: 10px 15px 15px -5px rgba(0,0,0,0.4);
+
+       }
+       .dur:hover,#li:hover{
         color: black;
-           background:orange;
+        background:orange;
            
        }
     </style>
 </head>
 
-<body>
+<body style="background:#f1f3de;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="font-size: 20px; font-weight:600; color:black;">
         <a class="navbar-brand" style ="color:pink" href="/">Shop</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +97,7 @@
             </form>
             <%} else {%>
             <a class="nav-item nav-link dur" href="/login">Login</a>
-            <a class="nav-item nav-link"style='background:blue;border-radius:20px;margin-left:3px;a:hover{ color:orange}' href="/signup">SignUp</a>
+            <a class="nav-item nav-link " id ="li" href="/signup">SignUp</a>
             <%}%>
           </div>
         </div>
@@ -91,7 +106,7 @@
         <% for(prod of product) { %>
              <div class="card-inner">
                 <!-- <p style="text-align:center;font-weight:800;"><%=prod.name%></p> -->
-            <img src= "<%=prod.imageUrl%>" style= "display:block;margin-top:50px;">
+            <img src= "<%=prod.imageUrl%>">
             <p style="font-weight:600;">Price: $<%=prod.price%></p>
          <p><%=prod.description%></p>
     
